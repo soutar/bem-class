@@ -1,0 +1,16 @@
+{
+  "name": "bem-class",
+  "version": "1.0.0",
+  "description": "Generate BEM class names based by chaining",
+  "main": "bem.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "BEM",
+    "CSS",
+    "ReactJS"
+  ],
+  "author": "John Soutar (@soutar)",
+  "license": "ISC"
+}
