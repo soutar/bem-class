@@ -1,47 +1,39 @@
-function BEM () {
-  this.blockName     = '';
-  this.elementName   = '';
-  this.modifierNames = [];
+function BEM (blockName, elementName, modifierNames) {
+  this.blockName     = blockName || '';
+  this.elementName   = elementName || '';
+  this.modifierNames = modifierNames || [];
 }
 
 BEM.prototype.block = function (blockName) {
-  this.blockName = blockName;
-  return this;
+  return new BEM(blockName, this.elementName, null);
 }
 
 BEM.prototype.element = function (elementName) {
-  this.elementName = elementName;
-  return this;
+  return new BEM(this.blockName, elementName, this.modifierNames);
 }
 
 BEM.prototype.modifier = function (modifiers) {
-  var _this = this;
+  var modifierNames = this.modifierNames.slice();
 
   switch (typeof modifiers) {
     case 'string':
-      this.modifierNames.push(modifiers);
+      modifierNames.push(modifiers);
     break;
     case 'object':
       Object.keys(modifiers).forEach(function(modifierName) {
-        modifiers[modifierName] && _this.modifierNames.push(modifierName);
+        modifiers[modifierName] && modifierNames.push(modifierName);
       });
     break;
   }
 
-  return this;
+  return new BEM(this.blockName, this.elementName, modifierNames);
 }
 
 BEM.prototype.toString = function() {
-  var _this = this;
-
-  var classes;
-  var blockElement = this.blockName + '__' + this.elementName;
-  var modifiers = this.modifierNames.map(function (modifierName) {
-    return _this.blockName + '__' + _this.elementName + '--' + modifierName;
-  });
-
-  classes = modifiers;
-  classes.unshift(blockElement);
+  var blockElement = this.blockName + (this.elementName ? '__' + this.elementName : '');
+  var classes = [blockElement].concat(this.modifierNames.map(function (modifierName) {
+    return blockElement + '--' + modifierName;
+  }));
 
   return classes.join(' ');
 }
