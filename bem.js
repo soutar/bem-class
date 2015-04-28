@@ -1,41 +1,55 @@
-function BEM (blockName, elementName, modifierNames) {
-  this.blockName     = blockName || '';
-  this.elementName   = elementName || '';
-  this.modifierNames = modifierNames || [];
+var BEM = {};
+
+BEM.block = function (blockName) {
+  return new BEM_Block(blockName);
+};
+
+function BEM_Block (blockName) {
+  this.name = blockName;
+  this.modifiers = [];
 }
 
-BEM.prototype.block = function (blockName) {
-  return new BEM(blockName, this.elementName, null);
+BEM_Block.prototype.element = function (elementName) {
+  return new BEM_Element(this, elementName)
 }
 
-BEM.prototype.element = function (elementName) {
-  return new BEM(this.blockName, elementName, this.modifierNames);
+BEM_Block.prototype.toString = function () {
+  var name = this.name;
+
+  return [name].concat(this.modifiers.map(function (modifierName) {
+    return name + '--' + modifierName;
+  })).join(' ');
 }
 
-BEM.prototype.modifier = function (modifiers) {
-  var modifierNames = this.modifierNames.slice();
+function BEM_Element (parentBlock, elementName) {
+  this.block = parentBlock;
+  this.name = elementName; 
+  this.modifiers = [];
+}
 
-  switch (typeof modifiers) {
+BEM_Element.prototype.toString = function () {
+  var blockElem = this.block.name + '__' + this.name;
+
+  return [blockElem].concat(this.modifiers.map(function (modifierName) {
+    return blockElem + '--' + modifierName;
+  })).join(' ');
+}
+
+BEM_Block.prototype.modifier = BEM_Element.prototype.modifier = function (modifier) {
+  var _this = this;
+
+  switch (typeof modifier) {
     case 'string':
-      modifierNames.push(modifiers);
+      this.modifiers.push(modifier);
     break;
     case 'object':
-      Object.keys(modifiers).forEach(function(modifierName) {
-        modifiers[modifierName] && modifierNames.push(modifierName);
+      Object.keys(modifier).forEach(function(modifierName) {
+        modifier[modifierName] && _this.modifiers.push(modifierName);
       });
     break;
   }
 
-  return new BEM(this.blockName, this.elementName, modifierNames);
-}
-
-BEM.prototype.toString = function() {
-  var blockElement = this.blockName + (this.elementName ? '__' + this.elementName : '');
-  var classes = [blockElement].concat(this.modifierNames.map(function (modifierName) {
-    return blockElement + '--' + modifierName;
-  }));
-
-  return classes.join(' ');
+  return this;
 }
 
 module.exports = BEM;
