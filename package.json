@@ -1,6 +1,6 @@
 {
   "name": "bem-class",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Generate BEM class names based by chaining",
   "main": "bem.js",
   "scripts": {
