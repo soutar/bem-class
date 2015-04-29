@@ -1,10 +1,11 @@
 {
   "name": "bem-class",
-  "version": "0.3.0",
+  "version": "0.4.1",
   "description": "Generate BEM class names based by chaining",
-  "main": "bem.js",
+  "main": "dist/bem.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compile": "gulp es6",
+    "prepublish": "npm run compile"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,11 @@
     "ReactJS"
   ],
   "author": "John Soutar (@soutar)",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-babel": "^5.1.0",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-uglify": "^1.2.0"
+  }
 }
