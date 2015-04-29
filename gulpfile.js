@@ -7,12 +7,12 @@ var gulpif     = require('gulp-if');
 var debug = false;
 
 gulp.task('es6', function () {
-    gulp.src('src/bem.es6.js')
+    gulp.src('src/bem.js')
         .pipe(gulpif(debug, sourcemaps.init()))
             .pipe(babel())
             .pipe(uglify())
         .pipe(gulpif(debug, sourcemaps.write()))
-        .pipe(gulp.dest('dist/bem.js'))
+        .pipe(gulp.dest('dist/'))
 });
 
 gulp.task('dev', function () {
