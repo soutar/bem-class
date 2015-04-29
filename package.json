@@ -2,7 +2,7 @@
   "name": "bem-class",
   "version": "0.4.0",
   "description": "Generate BEM class names based by chaining",
-  "main": "build/bem.js",
+  "main": "dist/bem.js",
   "scripts": {
     "compile": "gulp es6",
     "prepublish": "npm run compile"
