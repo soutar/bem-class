@@ -8,7 +8,7 @@ $ npm install --save-dev bem-class
 
 ## Usage
 
-Create a new block by calling `var block = bem.block('some-block-name')` and apply any neccessary modifiers with `block.modifier({ // modifiers })`
+Create a new block by calling `bem.block('some-block-name')` and storing the return value. You can apply modifiers to the block by chaining `.modifier({ 'someModifier': true })` onto the end of the `bem.block('')` call.
 
 ```js
 var bem = require('bem-class');
@@ -18,11 +18,11 @@ var personBlock = bem.block('person')
   .modifier({
     'child': (age < 18)
   });
-  
+
 console.log(personBlock.toString()); // "person person--child"
 ```
 
-You can then extend this block object and create an element object with `var element = block.element('some-element-name')`
+You can create elements by calling `.element('some-element-name')` on the result of `bem.block('')` and storing the return value, or by chaining directly onto the end of the block/modifier call. Elements can also be modified in the same way blocks can, by chaining `.modifier({ 'someModifier': false });` onto the end of the element call.
 
 ```js
 var isWaving = false;
@@ -32,14 +32,13 @@ var handElement = personBlock.element('hand')
   });
 
 console.log(handElement.toString()); // "person__hand"
-  
+
 var isHungry = true;
-var tummyElement = personBlock
-  .element('tummy')
+var tummyElement = personBlock.element('tummy')
   .modifier({
     'rumbling': isHungry
   });
-  
+
 console.log(tummyElement.toString()); // "person__tummy person__tummy--rumbling"
 ```
 
@@ -52,16 +51,16 @@ var bem = require('bem-class');
 
 class SomeComponent extends React.Component {
   render () {
-    var block = bem.block('some-block-name');
-    var element = container.element('some-element')
+    var container = bem.block('some-block-name');
+    var paragraph = container.element('some-element')
       .modifier({
         'some-enabled-modifier': true,
         'some-disabled-modifier': false
       });
 
     return (
-      <div className={block}>
-        <p className={element}></p>
+      <div className={container}>
+        <p className={paragraph}></p>
       </div>
     );
   }
