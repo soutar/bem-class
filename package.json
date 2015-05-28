@@ -4,7 +4,7 @@
   "description": "Generate BEM class names based by chaining",
   "main": "dist/bem.js",
   "scripts": {
-    "prepublish": "/node_modules/gulp/bin/gulp.js es6",
+    "prepublish": "./node_modules/gulp/bin/gulp.js es6",
     "test": "./node_modules/mocha/bin/mocha --compilers js:babel/register"
   },
   "repository": {
