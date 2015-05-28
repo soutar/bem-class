@@ -40,7 +40,7 @@ export class BEM_Block extends BEM_Modifiable {
 
 export class BEM_Element extends BEM_Modifiable {
     constructor (parentBlock, elementName) {
-        if (!(parentBlock instanceOf BEM_Block)) throw new Error('Please provide a parent block');
+        if (!(parentBlock instanceof BEM_Block)) throw new Error('Please provide a parent block');
         if (typeof elementName !== 'string') throw new Error('Please specify a name for this BEM element');
         super(elementName);
         this.block = parentBlock;
