@@ -1,5 +1,6 @@
-class BEM_Modifiable {
+export class BEM_Modifiable {
     constructor (name) {
+      if (typeof name !== 'string') throw new Error('Please specify a name for this BEM modifiable');
       this.name = name;
       this.modifiers = [];
     }
@@ -20,8 +21,9 @@ class BEM_Modifiable {
     }
 }
 
-class BEM_Block extends BEM_Modifiable {
+export class BEM_Block extends BEM_Modifiable {
     constructor (blockName) {
+        if (typeof blockName !== 'string') throw new Error('Please specify a name for this BEM block');
         super(blockName);
     }
 
@@ -36,8 +38,10 @@ class BEM_Block extends BEM_Modifiable {
     }
 }
 
-class BEM_Element extends BEM_Modifiable {
+export class BEM_Element extends BEM_Modifiable {
     constructor (parentBlock, elementName) {
+        if (!(parentBlock instanceOf BEM_Block)) throw new Error('Please provide a parent block');
+        if (typeof elementName !== 'string') throw new Error('Please specify a name for this BEM element');
         super(elementName);
         this.block = parentBlock;
     }
@@ -51,7 +55,6 @@ class BEM_Element extends BEM_Modifiable {
     }
 }
 
-var BEM = {};
-BEM.block = (blockName) => new BEM_Block(blockName);
-
-module.exports = BEM;
+export function block (blockName) {
+  return new BEM_Block(blockName);
+}
