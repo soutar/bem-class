@@ -1,1 +1,4 @@
 src/
+test/
+gulpfile.js
+README.md
