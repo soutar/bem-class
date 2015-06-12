@@ -53,6 +53,12 @@ export class BEM_Element extends BEM_Modifiable {
           return blockElem + '--' + modifierName;
         })).join(' ');
     }
+
+    copy () {
+        var newModifiable = new this.constructor(this.block, this.name);
+        newModifiable.modifiers = [].concat(this.modifiers);
+        return newModifiable;
+    }
 }
 
 export function block (blockName) {
