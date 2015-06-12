@@ -183,10 +183,26 @@ describe('BEM_Element', () => {
       };
       let block = new BEM_Block('block-name');
       let element = new BEM_Element(block, 'element-name').modifier(modifiers);
-      
+
       assert.equal(
         Object.keys(modifiers).filter(modifierName => !!modifiers[modifierName]).length + 1,
         element.toString().split(' ').length);
+    });
+  });
+
+  describe('copy()', () => {
+    it('should return a new BEM_Element instance with the same name, parent block and modifiers', () => {
+      let block = new BEM_Block('block-name');
+      let element = new BEM_Element(block, 'element-name').modifier({
+        'modifier1': false,
+        'modifier2': false
+      });
+      let copy = element.copy();
+
+      assert(copy instanceof BEM_Element);
+      assert.equal(copy.name, element.name);
+      assert.equal(copy.block, element.block);
+      assert.deepEqual(copy.modifiers, element.modifiers);
     });
   });
 });
