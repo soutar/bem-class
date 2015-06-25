@@ -9,7 +9,7 @@ describe('BEM_Modifiable', () => {
       assert.equal('modifiable', modifiable.name);
     });
 
-    it('should throw an error if a non-string name is provided', () => {
+    it('should throw an error if git a non-string name is provided', () => {
       assert.throws(() => {
         var modifiable = new BEM_Modifiable();
       }, Error);
@@ -17,7 +17,13 @@ describe('BEM_Modifiable', () => {
   });
 
   describe('modifier()', () => {
-    it('should apply truthy modifiers', () => {
+    it('should take a string and apply it as a modifier', () => {
+        let modifiable = new BEM_Modifiable('modifiable').modifier('modifier');
+
+        assert(modifiable.modifiers.indexOf('modifier') > -1);
+    });
+
+    it('should take an object and apply truthy modifiers', () => {
       let modifiable = new BEM_Modifiable('modifiable').modifier({
         'enabled': true
       });
@@ -25,12 +31,24 @@ describe('BEM_Modifiable', () => {
       assert.equal(true, (modifiable.modifiers.indexOf('enabled') > -1));
     });
 
-    it('should ignore falsey modifiers', () => {
+    it('should take an object and ignore falsey modifiers', () => {
       let modifiable = new BEM_Modifiable('modifiable').modifier({
         'disabled': false
       });
 
       assert.equal(-1, modifiable.modifiers.indexOf('disabled'));
+    });
+
+    it('should take an array and apply all elements as modifiers', () => {
+      let modifiable = new BEM_Modifiable('modifiable').modifier([
+        'modifier1',
+        'modifier2',
+        'modifier3'
+      ]);
+
+      assert(modifiable.modifiers.indexOf('modifier1') > -1);
+      assert(modifiable.modifiers.indexOf('modifier2') > -1);
+      assert(modifiable.modifiers.indexOf('modifier3') > -1);
     });
   });
 

@@ -6,14 +6,19 @@ export class BEM_Modifiable {
     }
 
     modifier (modifier) {
-        switch (typeof modifier) {
-          case 'string':
+        switch (Object.prototype.toString.call(modifier)) {
+          case '[object String]':
             this.modifiers.push(modifier);
           break;
-          case 'object':
+          case '[object Object]':
             Object.keys(modifier).forEach((modifierName) => {
               modifier[modifierName] && this.modifiers.push(modifierName);
             });
+          break;
+          case '[object Array]':
+            modifier.forEach((modifierName) => {
+                this.modifiers.push(modifierName);
+            })
           break;
         }
 
