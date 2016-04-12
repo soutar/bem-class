@@ -1,4 +1,4 @@
-# bem-class [![Build Status](https://travis-ci.org/soutar/bem-class.svg?branch=master)](https://travis-ci.org/Soutar/bem-class)
+# bem-class [![Build Status](https://travis-ci.org/soutar/bem-class.svg?branch=master)](https://travis-ci.org/soutar/bem-class)
 
 ## Install
 
