@@ -24,6 +24,12 @@ export class BEM_Modifiable {
 
         return this;
     }
+    
+    copy () {
+        var newBlock = new this.constructor(this.name);
+        newBlock.modifiers = [].concat(this.modifiers);
+        return newBlock;
+    }
 }
 
 export class BEM_Block extends BEM_Modifiable {
